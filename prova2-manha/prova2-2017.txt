@@ -1,0 +1,98 @@
+Unilasalle-RJ - AV2
+Aluno: (Felipe Malcher 0050013188)
+Prova Av2 de Laboratorio de Sistemas Operacionais
+Professor: Alex Salgado
+1o. Semestre de 2017   Turno: manha
+--------------------------------------------------
+1-Faça um script shell que:
+- Pergunte por um nome e crie uma pasta e um arquivo.txt com o mesmo nome inserido.
+
+2-Quantos erros tem no script abaixo? Qual(is) são eles?
+case "$file" in
+    *.txt}
+        echo "É um arquivo de texto."
+        cat "$file"
+        
+    *.gif|*.jpg|*.png}
+        echo "É uma figura."
+        xloadimage "$file"
+        
+    *}
+        echo "Não sei que arquivo é esse."
+        
+esac
+
+3-Usando estrutura de repetição, faça um script para exibir todos os arquivos
+da pasta atual com tamanho maior que 500kb.
+
+4-Usando estrutura de repetição, faça um script para calcular e exibir quantas
+pastas e quantos arquivos tem na pasta atual.
+
+5-Faça um script que leia um numero IP e retorna se endereço responde ou não ao 
+comando ping.
+Além disso, se for digitado um ip vazio, o script deve informar ao usuario.
+
+Respostas aqui:
+-------------------------------------------------------------------
+1-
+#!/bin/bash
+
+echo "Insira um nome"
+read nome
+
+mkdir $nome
+touch "$nome".txt
+-----------------------------------------------------------------
+2-
+ 3 erros iguais - no case não são chaves e sim parêntesis. trocar } por )
+
+ 2 erros - falta de espaçamento dos |
+
+ 3 erros iguais - falta de ;; ao final de cada caso
+
+ 1 erro - faltou jogar o parametro para  a variavel file
+
+ total de 9 erros
+----------------------------------------------------------------
+3-
+#!/bin/bash
+
+for j in $(ls ~)
+do
+  if [ wl -l $j -gt 500 ] 
+    then
+        echo "$j"
+  fi
+done
+----------------------------------------------------------------
+4- 
+#!/bin/bash
+
+cont=0
+for j in $(ls ~)
+do
+  echo "$j"
+  let cont=$cont+1
+done
+ echo "Numero de arquivos e pastas é:" "$cont"
+
+----------------------------------------------------------------
+5-
+#!/bin/bash
+
+echo "digite um ip"
+     read numip
+
+     if [ ! -z $numip ]
+     then
+        ping -c 1 $numip
+        if [ $? -eq 0 ]
+        then
+                echo "ip válido"
+        else
+                echo "ip inválido"
+        fi
+     else
+        echo "ip vazio"
+     fi
+
